@@ -1,0 +1,46 @@
+clf
+%clears figure
+hFig = figure(1); %brings up a new figure called figure 1
+set(hFig, 'Position', [0 0 1500 1200])
+%creates parameters and location of figure
+totaltrialtime=0; 
+allpos=[];
+%t=1;
+%??
+while totaltrialtime<10  %%
+    %starts loop
+%t=t+1;
+%??
+tdraw=tic;
+%starts stopwatch & sets variable to stopwatch start
+
+h=drawfreehand(gca,'Closed'=0); %%
+%creates drawing area for mousedown event
+
+axis([0 1 0 1])
+%defines axis parameter
+
+%%%%
+pos = h.Position 
+%%%%
+
+drawtime=toc(tdraw);
+%set variable to stopwatch time
+trialtime=toc(tdraw);
+%set variable to stopwatch time
+totaltrialtime=totaltrialtime+trialtime;
+
+A={'posx' 'posy';pos(:,1) pos(:,2)}
+%creates array - ' A(:,J) is the J-th column of A' so first column of pos
+%and second column of pos
+
+output=[pos,(1:size(pos(:,1)))',zeros(size(pos(:,1)))+1,ones(size(pos(:,1)))]; %the last two are for you to change subject number and condition, you may also want to include trial number
+
+%%%%
+writematrix('trial1.csv',output,'append')
+writematrix('trial1.csv',drawtime,'append')
+writematrix('trial1.csv',totaltrialtime,'append')
+allpos=[allpos;pos];
+output=[];
+end
+writematrix('trial1.csv','trialend','append');
